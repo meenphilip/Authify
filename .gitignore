@@ -12,3 +12,7 @@ Pipfile.lock
 
 # VS Code
 .vscode/
+
+# fonts/images
+static/fonts/
+static/assets/
