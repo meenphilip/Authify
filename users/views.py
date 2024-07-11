@@ -6,13 +6,17 @@ from .forms import LoginForm
 
 
 # home page
-@login_required
+@login_required(login_url="login")
 def index(request):
     return render(request, "users/index.html", {"index": "index"})
 
 
 # User login view.
 def user_login(request):
+    # prevent logged in user from seeing login page
+    if request.user.is_authenticated:
+        return redirect("index")
+
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
