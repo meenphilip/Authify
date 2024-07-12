@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
+from .forms import CustomPasswordChangeForm
 from .forms import LoginForm, UserRegistrationForm
 
 
@@ -66,3 +68,9 @@ def user_register(request):
 
 def registration_done(request):
     return render(request, "users/registration_done.html", {"new_user": request.user})
+
+
+# Custom Password Change View
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = CustomPasswordChangeForm
+    template_name = "users/password_change_form.html"

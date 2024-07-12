@@ -29,15 +29,6 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item mx-0 mx-lg-1">
-          <a class="nav-link py-3 px-0 px-lg-3 rounded text-warning" href="#"
-            >
-            {% if request.user.is_authenticated %}
-                Hello {{user.first_name}}
-            {% endif %}
-          </a
-          >
-        </li>
-        <li class="nav-item mx-0 mx-lg-1">
           <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio"
             >Portfolio</a
           >
@@ -72,7 +63,9 @@
     />
     <!-- Masthead Heading-->
     <h1 class="masthead-heading text-uppercase mb-0">
-      Welcome To Unique Developer
+      {% if request.user.is_authenticated %}
+         Welcome {{user.first_name}} 
+      {% endif %}
     </h1>
     <!-- Icon Divider-->
     <div class="divider-custom divider-light">
@@ -84,7 +77,15 @@
     </div>
     <!-- Masthead Subheading-->
     <p class="masthead-subheading font-weight-light mb-0">
-      Java Development - Web Development - Python
+      PLease Change your password with the button below.
+    </p>
+    <p class="lead text-white py-3">
+      <a
+        class="btn btn-sm btn-light rounded-pill p-2 text-dark"
+        href="{% url 'password_change' %}"
+      >
+        Change Password</a
+      >
     </p>
   </div>
 </header>
@@ -792,4 +793,4 @@
     </div>
   </div>
 </div>
-{% endblock content %}
+{% endblock %}

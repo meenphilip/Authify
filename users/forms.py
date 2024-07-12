@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 
 # user login form
 # class LoginForm(forms.Form):
@@ -77,3 +78,31 @@ class UserRegistrationForm(forms.ModelForm):
         if cd["password"] != cd["password2"]:
             raise forms.ValidationError("Passwords don't match.")
         return cd["password2"]
+
+
+# Custom Password Change Form
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Old Password",
+                "class": "form-control",
+            }
+        )
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "New Password",
+                "class": "form-control",
+            }
+        )
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm New Password",
+                "class": "form-control",
+            }
+        )
+    )
