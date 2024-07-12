@@ -12,21 +12,31 @@
 
 {% block content %}
 <div class="main">
-  <div class="container">
-    <div class="signup-content">
-      <div class="signup-form">
-        <h2 class="form-title">Registration Successful</h2>
-        <p>
-          Welcome,<strong> {{ new_user.username }}</strong>! Your account has been created
-          successfully.
-        </p>
-        <p>
-          You can now
-          <a  href="{% url 'login' %}">log in</a> to
-          your account.
-        </p>
+  <section class="sign-in">
+    <div class="container">
+      <div class="signin-content">
+        <div class="signin-image">
+          <figure>
+            <img
+              src="{% static 'images/signin-image.jpg' %}"
+              alt="registration done image"
+            />
+          </figure>
+        </div>
+
+        <div class="signin-form">
+          <h1 class="form-title">Registration Successful</h1>
+          <p>
+            Welcome, <strong>{{ new_user.username }}</strong>! Your account has been created successfully.
+          </p>
+          <p>
+            You can now
+            <strong><a href="{% url 'login' %}">log in</a></strong> to your account.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </div>
+
 {% endblock %}
