@@ -2,13 +2,13 @@
 
 {% load static %} 
 
-{% block title %}Sign In Form{% endblock %}
+{% block title %}Sign In Form{% endblock %} 
 
 {% block extra_css %}
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <!-- Additional CSS -->
-{% endblock %}
+<!-- Main CSS -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<!-- Additional CSS -->
+{% endblock %} 
 
 {% block content %}
 <div class="main">
@@ -22,12 +22,19 @@
               alt="sign up image"
             />
           </figure>
-          <a href="{% url "register" %}" class="signup-image-link">Create an account</a>
+          <a href="{% url 'register' %}" class="signup-image-link"
+            >Create an account</a
+          >
         </div>
 
         <div class="signin-form">
           <h2 class="form-title">Sign in</h2>
-          <form method="post" class="register-form" id="login-form">
+          <form
+            method="post"
+            action="{% url 'login' %}"
+            class="register-form"
+            id="login-form"
+          >
             {% csrf_token %}
             <div class="form-group">
               <label for="{{ form.username.id_for_label }}"
@@ -52,6 +59,7 @@
                 <span><span></span></span>Remember me
               </label>
             </div>
+            <input type="hidden" name="next" value="{{ next }}" />
             <div class="form-group form-button">
               <input
                 type="submit"
@@ -60,6 +68,9 @@
                 class="form-submit"
                 value="Log in"
               />
+              <a href="{% url 'register' %}" class="forgotten">
+                Forgotten your password?
+              </a>
             </div>
           </form>
           <div class="social-login">

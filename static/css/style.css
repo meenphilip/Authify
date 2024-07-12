@@ -311,6 +311,10 @@ h2 {
   clear: both;
 }
 
+.forgotten {
+  margin-left: 11px;
+}
+
 body {
   font-size: 13px;
   line-height: 1.8;
