@@ -96,7 +96,13 @@ class CustomPasswordChangeForm(PasswordChangeForm):
                 "placeholder": "New Password",
                 "class": "form-control",
             }
-        )
+        ),
+        help_text=(
+            "Your password can’t be too similar to your other personal information.<br>"
+            "Your password must contain at least 8 characters.<br>"
+            "Your password can’t be a commonly used password.<br>"
+            "Your password can’t be entirely numeric."
+        ),
     )
     new_password2 = forms.CharField(
         widget=forms.PasswordInput(
