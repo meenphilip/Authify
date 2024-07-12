@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 
 
 # home page
@@ -41,3 +41,28 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("login")  # Redirect to the home page or any other page
+
+
+# Register user
+def user_register(request):
+    if request.method == "POST":
+        # instantiate form
+        form = UserRegistrationForm(request.POST)
+        # validated data
+        if form.is_valid():
+            # create new user but dont save yet
+            new_user = form.save(commit=False)
+            # set & hash chosen password
+            new_user.set_password(form.cleaned_data["password"])
+            # save the user obj
+            new_user.save()
+            return render(
+                request, "users/registration_done.html", {"new_user": new_user}
+            )
+    else:
+        form = UserRegistrationForm()
+    return render(request, "users/registration.html", {"form": form})
+
+
+def registration_done(request):
+    return render(request, "users/registration_done.html", {"new_user": request.user})
