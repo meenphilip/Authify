@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import (
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
 
 # user login form
 # class LoginForm(forms.Form):
@@ -108,6 +112,38 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         widget=forms.PasswordInput(
             attrs={
                 "placeholder": "Confirm New Password",
+                "class": "form-control",
+            }
+        )
+    )
+
+
+# Custom Password Reset Form
+class CustomPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Email address",
+                "class": "form-control",
+            }
+        ),
+    )
+
+
+#  Custom SetPasswordForm
+class CustomSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "New password",
+                "class": "form-control",
+            }
+        )
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Confirm new password",
                 "class": "form-control",
             }
         )

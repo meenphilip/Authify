@@ -10,7 +10,11 @@ urlpatterns = [
     path("register/", views.user_register, name="register"),
     # change password
     path(
-        "password-change/", CustomPasswordChangeView.as_view(), name="password_change"
+        "password-change/",
+        CustomPasswordChangeView.as_view(
+            template_name="users/password_change_form.html"
+        ),
+        name="password_change",
     ),
     path(
         "password-change/done/",
@@ -18,6 +22,35 @@ urlpatterns = [
             template_name="users/password_change_done.html"
         ),
         name="password_change_done",
+    ),
+    # Password Reset
+    path(
+        "password-reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name="users/password_reset_form.html"
+        ),
+        name="password_reset",
+    ),
+    path(
+        "password-reset/done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="users/reset_password_sent.html"
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "password-reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="users/password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password-reset/complete/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="users/reset_password_complete.html"
+            ),
+        name="password_reset_complete",
     ),
     # path("registration_done/", views.registration_done, name="registration-done"),
 ]
