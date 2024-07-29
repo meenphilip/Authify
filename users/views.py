@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserRegistrationForm
@@ -15,6 +15,7 @@ def index(request):
 def user_login(request):
     # prevent logged in user from seeing login page
     if request.user.is_authenticated:
+        messages.info(request, "You are already logged in.")
         return redirect("index")
 
     if request.method == "POST":
@@ -27,11 +28,12 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    messages.success(request, "You have successfully logged in.")
                     return redirect("index")
                 else:
-                    return HttpResponse("Disabled account")
+                    messages.error(request, "Your account is disabled.")
             else:
-                return HttpResponse("Invalid login")
+                messages.error(request, "Invalid login credentials.")
     else:
         form = LoginForm()
     return render(request, "users/login.html", {"form": form})
@@ -40,6 +42,7 @@ def user_login(request):
 # User logout view
 def user_logout(request):
     logout(request)
+    messages.success(request, "You have successfully logged out!")
     return redirect("login")  # Redirect to the home page or any other page
 
 
@@ -56,6 +59,7 @@ def user_register(request):
             new_user.set_password(form.cleaned_data["password"])
             # save the user obj
             new_user.save()
+            messages.success(request, "You have successfully registered!")
             return render(
                 request, "users/registration_done.html", {"new_user": new_user}
             )
@@ -64,5 +68,5 @@ def user_register(request):
     return render(request, "users/registration.html", {"form": form})
 
 
-def registration_done(request):
-    return render(request, "users/registration_done.html", {"new_user": request.user})
+# def registration_done(request):
+#     return render(request, "users/registration_done.html", {"new_user": request.user})

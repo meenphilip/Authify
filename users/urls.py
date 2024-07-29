@@ -7,6 +7,8 @@ urlpatterns = [
     path("login/", views.user_login, name="login"),
     path("logout/", views.user_logout, name="logout"),
     path("register/", views.user_register, name="register"),
+    # path("register/done/", views.registration_done, name="register-done"),
+    
     # change password
     path(
         "password-change/",
@@ -51,5 +53,4 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    # path("registration_done/", views.registration_done, name="registration-done"),
 ]
